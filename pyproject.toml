@@ -1,31 +1,17 @@
-[tool.poetry]
+[project]
 name = "jay-bot"
 version = "0.1.0"
-description = "A fine-tuned language model representing Jay"
-authors = ["Jay Trevino"]
-packages = [
-    { include = "app" },  # Include your app directory
+description = "A personalized chatbot based on Jay's persona"
+dependencies = [
+    "flask",
+    "requests",
 ]
 
-[tool.poetry.dependencies]
-python = "^3.9"
-Flask = "^3.1.0"
-gunicorn = "^23.0.0"
-python-dotenv = "^1.0.1"
-requests = "^2.32.3"
-blinker = "^1.9.0"
-
-[tool.black]
-line-length = 88
-target-version = ['py37']
-include = '\.pyi?$'
-
-[tool.pylint.messages_control]
-disable = [
-    "C0111",  # missing-docstring
-    "C0103",  # invalid-name
+[project.optional-dependencies]
+dev = [
+    "pytest",
 ]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"

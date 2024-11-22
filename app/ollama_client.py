@@ -2,16 +2,19 @@ import requests
 
 class OllamaClient:
     def __init__(self):
-        # Local Ollama server URL
-        self.model_url = 'http://localhost:11434/models/llama2'  # Update to your model name
+        self.base_url = "http://localhost:11434/api"
+        self.model = "jaybo"  # Use your fine-tuned model
 
-    def get_model_response(self, user_input):
-        # Send user input to the local Ollama model and receive a response
+    def get_model_response(self, prompt):
         try:
-            response = requests.post(self.model_url, json={"input": user_input})
-            if response.status_code == 200:
-                return response.json().get('response', 'No response from model.')
-            else:
-                return f"Error: {response.status_code} - {response.text}"
+            response = requests.post(
+                f"{self.base_url}/generate",
+                json={
+                    "model": self.model,
+                    "prompt": prompt,
+                    "stream": False
+                }
+            )
+            return response.json()["response"]
         except Exception as e:
             return f"Error: {str(e)}"
